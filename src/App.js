@@ -1,10 +1,10 @@
 import './App.css'
-import YouTubeEmbed from './YoutubeSearch/app'
+import YouTubeSearch from './YoutubeSearch/app'
 
 function App() {
   return (
     <div className='App'>
-      <YouTubeEmbed />
+      <YouTubeSearch />
     </div>
   )
 }
