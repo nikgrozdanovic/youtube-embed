@@ -3,6 +3,8 @@ import axios from 'axios'
 import VideosList from '../VideosList/app'
 import EmbeddedVideo from '../EmbeddedVideo/app'
 import './YoutubeSearch.css'
+import { useDispatch } from 'react-redux'
+import { searchVideos } from '../redux/features/search'
 
 const APIs = {
   youtube: 'AIzaSyDPfjshXwZ-GgZ1ko4har_OujJzR2ypgTs',
@@ -14,6 +16,8 @@ const YouTubeSearch = () => {
   const [searchResults, setSearchResults] = useState([])
   const [selectedVideoId, setSelectedVideoId] = useState('')
   const [selectedSource, setSelectedSource] = useState('youtube')
+
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setKeyword(e.target.value)
@@ -28,7 +32,7 @@ const YouTubeSearch = () => {
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${keyword}&type=video&key=${apiKey}`
       )
-      console.log(response.data.items)
+      dispatch(searchVideos(response.data.items))
       setSearchResults(response.data.items)
       setSelectedVideoId('')
     } catch (err) {
@@ -67,7 +71,6 @@ const YouTubeSearch = () => {
 
       {searchResults.length > 0 && (
         <VideosList
-          videos={searchResults}
           selectedVideoId={selectedVideoId}
           onVideoSelect={handleVideoSelect}
         />

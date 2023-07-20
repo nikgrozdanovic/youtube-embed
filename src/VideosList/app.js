@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-const VideosList = ({ videos, selectedVideoId, onVideoSelect }) => {
+const VideosList = ({ selectedVideoId, onVideoSelect }) => {
+  const videos = useSelector((state) => state.search.value)
+
   return (
     <div className='container'>
       <h2>Search Results</h2>
